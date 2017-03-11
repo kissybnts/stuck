@@ -11,6 +11,7 @@ defmodule Stuck.ArticleView do
 
   def render("article.json", %{article: article}) do
     %{id: article.id,
-      title: article.title}
+      title: article.title,
+      fragments: render_many(article.fragments, Stuck.FragmentView, "fragment.json")}
   end
 end

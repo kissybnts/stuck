@@ -4,7 +4,7 @@ defmodule Stuck.ArticleController do
   alias Stuck.Article
 
   def index(conn, _params) do
-    articles = Repo.all(Article)
+    articles = Repo.all(Article) |> Repo.preload(:fragments)
     render(conn, "index.json", articles: articles)
   end
 
@@ -25,7 +25,7 @@ defmodule Stuck.ArticleController do
   end
 
   def show(conn, %{"id" => id}) do
-    article = Repo.get!(Article, id)
+    article = Repo.get!(Article, id) |> Repo.preload(:fragments)
     render(conn, "show.json", article: article)
   end
 

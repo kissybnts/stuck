@@ -3,6 +3,7 @@ defmodule Stuck.Article do
 
   schema "articles" do
     field :title, :string
+    has_many :fragments, Stuck.Fragment
 
     timestamps()
   end
