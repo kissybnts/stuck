@@ -16,9 +16,11 @@ defmodule Stuck.Router do
   scope "/", Stuck do
     pipe_through :browser # Use the default browser stack
 
+    scope "/v1", V1, as: :v1 do
+      resources "/articles", ArticleController
+      resources "/fragments", FragmentController
+    end
     get "/", PageController, :index
-    resources "/articles", ArticleController
-    resources "/fragments", FragmentController
   end
 
   # Other scopes may use custom stacks.

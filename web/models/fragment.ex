@@ -9,6 +9,8 @@ defmodule Stuck.Fragment do
     timestamps()
   end
 
+  @required_fields ~w(body)
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """

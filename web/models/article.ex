@@ -8,6 +8,8 @@ defmodule Stuck.Article do
     timestamps()
   end
 
+  @required_fields ~w(title)
+
   @doc """
   Builds a changeset based on the `struct` and `params`.
   """

@@ -1,4 +1,4 @@
-defmodule Stuck.ArticleController do
+defmodule Stuck.V1.ArticleController do
   use Stuck.Web, :controller
 
   alias Stuck.Article
@@ -13,9 +13,10 @@ defmodule Stuck.ArticleController do
 
     case Repo.insert(changeset) do
       {:ok, article} ->
+        article = Repo.preload(article, :fragments)
         conn
         |> put_status(:created)
-        |> put_resp_header("location", article_path(conn, :show, article))
+        |> put_resp_header("location", v1_article_path(conn, :show, article))
         |> render("show.json", article: article)
       {:error, changeset} ->
         conn
@@ -30,7 +31,7 @@ defmodule Stuck.ArticleController do
   end
 
   def update(conn, %{"id" => id, "article" => article_params}) do
-    article = Repo.get!(Article, id)
+    article = Repo.get!(Article, id) |> Repo.preload(:fragments)
     changeset = Article.changeset(article, article_params)
 
     case Repo.update(changeset) do

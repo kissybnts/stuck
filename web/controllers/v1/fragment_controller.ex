@@ -1,4 +1,4 @@
-defmodule Stuck.FragmentController do
+defmodule Stuck.V1.FragmentController do
   use Stuck.Web, :controller
 
   alias Stuck.Fragment
@@ -15,7 +15,7 @@ defmodule Stuck.FragmentController do
       {:ok, fragment} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", fragment_path(conn, :show, fragment))
+        |> put_resp_header("location", v1_fragment_path(conn, :show, fragment))
         |> render("show.json", fragment: fragment)
       {:error, changeset} ->
         conn
