@@ -3,8 +3,12 @@ defmodule Stuck.V1.FragmentController do
 
   alias Stuck.Fragment
 
-  def index(conn, _params) do
-    fragments = Repo.all(Fragment)
+  def index(conn, %{"article_id" => article_id}) do
+    query = from f in Fragment,
+      where: f.article_id == ^article_id,
+      select: f
+    fragments = query |> Repo.all
+
     render(conn, "index.json", fragments: fragments)
   end
 
@@ -15,7 +19,6 @@ defmodule Stuck.V1.FragmentController do
       {:ok, fragment} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", v1_fragment_path(conn, :show, fragment))
         |> render("show.json", fragment: fragment)
       {:error, changeset} ->
         conn

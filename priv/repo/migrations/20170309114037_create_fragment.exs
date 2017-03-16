@@ -5,7 +5,7 @@ defmodule Stuck.Repo.Migrations.CreateFragment do
     create table(:fragments) do
       add :header, :string
       add :body, :text
-      add :article_id, references(:articles, on_delete: :nothing)
+      add :article_id, references(:articles, on_delete: :nothing), null: false
 
       timestamps()
     end

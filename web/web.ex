@@ -72,6 +72,14 @@ defmodule Stuck.Web do
     end
   end
 
+  def util do
+    quote do
+      use Ecto.Schema
+
+      import Ecto
+    end
+  end
+
   @doc """
   When used, dispatch to the appropriate controller/view/etc.
   """

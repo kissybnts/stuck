@@ -16,7 +16,7 @@ defmodule Stuck.Fragment do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:header, :body])
-    |> validate_required([:header, :body])
+    |> cast(params, [:header, :body, :article_id])
+    |> validate_required([:header, :body, :article_id])
   end
 end

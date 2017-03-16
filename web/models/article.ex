@@ -3,6 +3,7 @@ defmodule Stuck.Article do
 
   schema "articles" do
     field :title, :string
+    belongs_to :user, Stuck.User
     has_many :fragments, Stuck.Fragment
 
     timestamps()
@@ -15,7 +16,7 @@ defmodule Stuck.Article do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:title])
-    |> validate_required([:title])
+    |> cast(params, [:title, :user_id])
+    |> validate_required([:title, :user_id])
   end
 end

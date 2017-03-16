@@ -2,11 +2,11 @@ defmodule Stuck.V1.FragmentView do
   use Stuck.Web, :view
 
   def render("index.json", %{fragments: fragments}) do
-    %{data: render_many(fragments, Stuck.V1.FragmentView, "fragment.json")}
+    %{fragments: render_many(fragments, Stuck.V1.FragmentView, "fragment.json")}
   end
 
   def render("show.json", %{fragment: fragment}) do
-    %{data: render_one(fragment, Stuck.V1.FragmentView, "fragment.json")}
+    %{fragment: render_one(fragment, Stuck.V1.FragmentView, "fragment.json")}
   end
 
   def render("fragment.json", %{fragment: fragment}) do
