@@ -8,7 +8,7 @@ defmodule Stuck.V1.UserController do
 
   # Redirect to twitter authentication page
   def index(conn, _params) do
-    token = ExTwitter.request_token(Router.Helpers.auth_url(conn, :callback))
+    token = ExTwitter.request_token("http://localhost:4000/auth/v1/twitter/callback")
     {:ok, authenticate_url} = ExTwitter.authenticate_url(token.oauth_token)
     redirect conn, external: authenticate_url
   end

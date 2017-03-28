@@ -6,11 +6,11 @@ defmodule Stuck.V1.UserView do
   # end
 
   def render("show.json", %{user: user}) do
-    %{user: render_one(user, Stuck.UserView, "user.json")}
+    %{user: render_one(user, Stuck.V1.UserView, "user.json")}
   end
 
   def render("twitter_login.json", %{user: user, token: token}) do
-    %{user: render_one(user, Stuck.UserView, "user.json"),
+    %{user: render_one(user, Stuck.V1.UserView, "user.json"),
       token: token}
   end
 
