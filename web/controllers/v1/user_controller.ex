@@ -25,18 +25,29 @@ defmodule Stuck.V1.UserController do
     )
 
     user_info = ExTwitter.verify_credentials()
-    changeset = User.changeset(%User{}, %{name: user_info.name, sns: 1})
+    changeset = User.changeset(%User{}, %{name: user_info.screen_name, sns: 1})
 
-    case Repo.insert(changeset) do
-      {:ok, user} ->
-        Redis.save_user_id(user.id, access_token.oauth_token)
+    query = from u in User,
+      where: u.name == ^user_info.screen_name,
+      select: u
+
+    case Repo.one(query) do
+      nil ->
+        case Repo.insert(changeset) do
+          {:ok, user} ->
+            Redis.save_user_id(user.id, access_token.oauth_token)
+            conn
+            |> put_status(:ok)
+            |> render("twitter_login.json", user: user, token: access_token.oauth_token)
+          {:error, _} ->
+            conn
+            |> put_status(:internal_server_error)
+            |> render(Stuck.ErrorView, "error_message.json", message: "DB error occurred")
+        end
+      exist ->
         conn
         |> put_status(:ok)
-        |> render("twitter_login.json", user: user, token: access_token.oauth_token)
-      {:error, _} ->
-        conn
-        |> put_status(:internal_server_error)
-        |> render(Stuck.ErrorView, "error_message.json", message: "DB error occurred")
+        |> render("twitter_login.json", user: exist, token: access_token.oauth_token)
     end
   end
 
