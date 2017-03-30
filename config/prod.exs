@@ -56,6 +56,12 @@ config :logger, level: :info
 #     config :stuck, Stuck.Endpoint, server: true
 #
 
+config :stuck, Stuck.Repo,
+  adapter: Ecto.Adapters.MySQL,
+  url: System.get_env("CLEARDB_DATABASE_URL"),
+  pool_size: String.to_integer(System.get_env("DB_POOL_SIZE") || "10"),
+  ssl: false
+
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 import_config "prod.secret.exs"
