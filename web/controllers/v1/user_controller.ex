@@ -45,7 +45,7 @@ defmodule Stuck.V1.UserController do
             |> render(Stuck.ErrorView, "error_message.json", message: "DB error occurred")
         end
       exist ->
-        Redis.save_user_id(user.id, access_token.oauth_token)
+        Redis.save_user_id(exist.id, access_token.oauth_token)
         conn
         |> put_status(:ok)
         |> render("twitter_login.json", user: exist, token: access_token.oauth_token)
