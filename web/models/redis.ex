@@ -26,7 +26,7 @@ defmodule Stuck.Redis do
   end
 
   defp get_connection do
-    case caseSystem.get_env("REDIS_URL") do
+    case System.get_env("REDIS_URL") do
       nil ->
         {:ok, conn} = Redix.start_link()
         conn
