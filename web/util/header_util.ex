@@ -7,7 +7,11 @@ defmodule Stuck.HeaderUtil do
   def get_token(conn) do
     header_value = Enum.find(conn.req_headers, &elem(&1, 0) == "authorization")
                    |> elem(1)
-    [_, [token]] = Regex.scan(~r/^Bearer|\w+/, header_value)
-    token
+    case Regex.scan(~r/^Bearer|[0-9a-zA-Z-_]+/, header_value) do
+      [_, [token]] ->
+        token
+      [_, [pre, pos]] ->
+        pre <> "-" <> pos
+    end
   end
 end
