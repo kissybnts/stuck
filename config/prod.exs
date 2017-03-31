@@ -13,8 +13,7 @@ use Mix.Config
 # which you typically run after static files are built.
 config :stuck, Stuck.Endpoint,
   http: [port: {:system, "PORT"}],
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/manifest.json"
+  url: [host: "example.com", port: 80]
 
 # Do not print debug messages in production
 config :logger, level: :info
@@ -61,7 +60,3 @@ config :stuck, Stuck.Repo,
   url: System.get_env("CLEARDB_DATABASE_URL"),
   pool_size: String.to_integer(System.get_env("DB_POOL_SIZE") || "9"),
   ssl: false
-
-# Finally import the config/prod.secret.exs
-# which should be versioned separately.
-# import_config "prod.secret.exs"
