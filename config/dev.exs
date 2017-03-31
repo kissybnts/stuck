@@ -39,4 +39,4 @@ config :stuck, Stuck.Repo,
   password: "",
   database: "stuck_dev",
   hostname: "localhost",
-  pool_size: 10
+  pool_size: 9
