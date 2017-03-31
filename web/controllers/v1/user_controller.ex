@@ -8,7 +8,7 @@ defmodule Stuck.V1.UserController do
 
   # Redirect to twitter authentication page
   def index(conn, _params) do
-    token = ExTwitter.request_token("http://localhost:4000/auth/v1/twitter/callback")
+    token = ExTwitter.request_token(get_domain() <> "/auth/v1/twitter/callback")
     {:ok, authenticate_url} = ExTwitter.authenticate_url(token.oauth_token)
     redirect conn, external: authenticate_url
   end
@@ -89,5 +89,9 @@ defmodule Stuck.V1.UserController do
     conn
     |> put_status(:ok)
     |> send_resp(:no_content, "")
+  end
+
+  defp get_domain() do
+    System.get_env("DOMAIN") || "http://localhost:4000"
   end
 end
