@@ -34,8 +34,5 @@ defmodule Stuck.Redis do
         {:ok, conn} = Redix.start_link(url)
         conn
     end
-
-    {:ok, conn} = Redix.start_link()
-    conn
   end
 end
